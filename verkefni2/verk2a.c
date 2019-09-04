@@ -38,11 +38,20 @@
 //+++++++++++++++++++++++++++++++++++++++++++++| MAIN |+++++++++++++++++++++++++++++++++++++++++++++++
 task main()
 {
-	wait1Msec(2000);						// Robot waits for 2000 milliseconds before executing program
+	int counter;
 
-	// Move forward at full power for 3 seconds
-	motor[rightMotor] = 127;		  // Motor on port2 is run at full (127) power forward
-	motor[leftMotor]  = 127;		  // Motor on port3 is run at full (127) power forward
-	wait1Msec(3000);			        // Robot runs previous code for 3000 milliseconds before moving on
+	for(counter = 1; counter <= 5; counter++){
+		motor[rightMotor] = 127;
+		motor[leftMotor]  = 127;
+		wait1Msec(3000 * counter);
+
+		motor[rightMotor] = -127;
+		motor[leftMotor]  = -127;
+		wa
+	}
+
+
+
+
 }												        // Program ends, and the robot stops
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
