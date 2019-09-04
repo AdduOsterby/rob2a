@@ -33,21 +33,25 @@
 |*    Motor Port 2        rightMotor          VEX 3-wire module     Right side motor                  *|
 |*    Motor Port 3        leftMotor           VEX 3-wire module     Left side motor                   *|
 \*-----------------------------------------------------------------------------------------------4246-*/
-
-
+#define BASETIME ??
+void drive(int counter, bool b_f) {
+		int dir = (b_f)? (1)(-1);
+		motor[rightMotor] = dir*127;
+		motor[leftMotor]  = dir*127;
+		wait1Msec(?? * counter);
+	}
 //+++++++++++++++++++++++++++++++++++++++++++++| MAIN |+++++++++++++++++++++++++++++++++++++++++++++++
 task main()
 {
+
 	int counter;
 
 	for(counter = 1; counter <= 5; counter++){
-		motor[rightMotor] = 127;
-		motor[leftMotor]  = 127;
-		wait1Msec(3000 * counter);
+
 
 		motor[rightMotor] = -127;
 		motor[leftMotor]  = -127;
-		wa
+		wait1Msec(3000 * counter);
 	}
 
 
