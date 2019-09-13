@@ -13,29 +13,29 @@ void resetEncoder() {
 void driveEncoder(int dist, bool b_f) {
 	int dir = (b_f)? (1):(-1);
 	while(dist > abs(SensorValue[leftEncoder])) {
-		if(abs(SensorValue[rightEncoder]) == abs(SensorValue[leftEncoder])) // If rightEncoder has counted the same amount as leftEncoder:
+		if(abs(SensorValue[rightEncoder]) == abs(SensorValue[leftEncoder])) 
 			{
 				// Move Forward
-				motor[rightMotor] = 80 * dir;		    // Right Motor is run at power level 80
-				motor[leftMotor]  = 80 * dir;		    // Left Motor is run at power level 80
+				motor[rightMotor] = 80 * dir;		   
+				motor[leftMotor]  = 80 * dir;		    
 			}
-			else if(abs(SensorValue[rightEncoder]) > abs(SensorValue[leftEncoder]))	// If rightEncoder has counted more encoder counts
+			else if(abs(SensorValue[rightEncoder]) > abs(SensorValue[leftEncoder]))	
 			{
-				if(dir == false) {
+				if(dir == -1) {
 					// Turn slightly right
-					motor[rightMotor] = 60 * dir;		    // Right Motor is run at power level 60
-					motor[leftMotor]  = 80 * dir;		    // Left Motor is run at power level 80
+					motor[rightMotor] = 70 * dir;		    
+					motor[leftMotor]  = 80 * dir;		    
 				}
 				else {
-					motor[rightMotor] = 90 * dir;		    // Right Motor is run at power level 60
+					motor[rightMotor] = 90 * dir;		    
 					motor[leftMotor]  = 60 * dir;
 				}
 			}
-			else	// Only runs if leftEncoder has counted more encoder counts
+			else	
 			{
 				// Turn slightly left
-				motor[rightMotor] = 60 * dir;		    // Right Motor is run at power level 80
-				motor[leftMotor]  = 80 * dir;		    // Left Motor is run at power level 60
+				motor[rightMotor] = 60 * dir;		    
+				motor[leftMotor]  = 80 * dir;		    
 			}
 		}
 	}
