@@ -1,0 +1,12 @@
+task main()
+{
+	
+	int counter;
+
+	for( while counter is less than 5, adds one to the counter each time it runs){
+			drives forward for certain ammount of time then multiplies with the counter
+			drives backward for certain ammount of time then multiplies with the counter 
+			
+	}
+
+}

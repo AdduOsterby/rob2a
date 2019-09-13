@@ -1,0 +1,19 @@
+task main()
+{
+
+	reset encoders
+	int counter;
+
+	for(while counter is less than 5, adds one to the counter each time it runs){
+			reset encoders
+			drives forward
+			drives forward for a certain distance then multiplies with the counter
+			reset encoders
+			drives forward for a certain distance then multiplies with the counter
+			reset encoders
+	}
+
+
+
+
+}
