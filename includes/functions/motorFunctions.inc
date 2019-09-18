@@ -39,3 +39,26 @@ void driveEncoder(int dist, bool b_f) {
 			}
 		}
 	}
+	
+void stopMotors(){
+  motor(rightMotor) = 0;
+  motor(leftMotor) = 0;
+  wait1Msec(1000);
+}
+	
+void turn(int dist, bool l_r)
+{ 
+  resetEncoder();
+  
+  while(abs(SensorValue[rightEncoder]) < dist)
+  {
+	if(l_r == false){
+      motor[rightMotor] = -63;
+      motor[leftMotor]  = 63;
+	}
+	else{
+	  motor[rightMotor] = 63;
+      motor[leftMotor]  = -63;
+	}
+  }
+}

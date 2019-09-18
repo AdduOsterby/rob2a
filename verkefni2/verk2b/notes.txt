@@ -1,0 +1,10 @@
+Dekk mælt 10.5cm
+
+Finna ummál:
+    pi*þvermál = pi*10.5 = 32.98 ~ 33 
+				50:33 = 1.5*360 = 540
+
+
+Hægri motor: 90
+Vinstri motor: 60
+
