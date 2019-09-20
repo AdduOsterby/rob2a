@@ -62,3 +62,9 @@ void turn(int dist, bool l_r)
 	}
   }
 }
+
+task stopMyTasks(){
+	while(vexRT[Btn8L]!=1){
+	}
+	StopAllTasks();
+}
