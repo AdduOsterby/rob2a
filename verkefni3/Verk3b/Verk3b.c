@@ -28,7 +28,8 @@ bool turnArray[14]={0,1,1,0,0,1,0,0,1,0,0,1,1,0};
 
 task main()
 {
-	StartTask(stopMyTasks);
+	StartTask(stopMyTasksC);
+	StartTask(stopMyTasksR);
 		wait1Msec(2000);
 		for(int i=0;i<15;i++){
 			stopMotors();

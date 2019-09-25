@@ -63,8 +63,16 @@ void turn(int dist, bool l_r)
   }
 }
 
-task stopMyTasks(){
-	while(vexRT[Btn8L]!=1){
+
+
+task stopMyTasksR(){
+	while(SensorValue[frontTouch]!=1){
+	}
+	StopAllTasks();
+}
+
+task stopMyTasksC() {
+	while(vexRT[Btn8L]!=1) {
 	}
 	StopAllTasks();
 }
