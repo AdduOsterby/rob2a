@@ -101,3 +101,16 @@ task battery()
 		wait1Msec(100);
 	}
 }
+task light() {
+	while(1 == 1) {
+		while(SensorValue(lightSensor) > 200) 
+		{
+		
+			motor[rightMotor] = 0;			          
+			motor[leftMotor]  = 0;
+			
+		}
+			
+	}
+	
+}
