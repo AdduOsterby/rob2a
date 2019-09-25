@@ -28,6 +28,7 @@ bool turnArray[14]={0,1,1,0,0,1,0,0,1,0,0,1,1,0};
 
 task main()
 {
+	StartTask(battery);
 	StartTask(stopMyTasksC);
 	StartTask(stopMyTasksR);
 		wait1Msec(2000);
