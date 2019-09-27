@@ -18,7 +18,7 @@
 |*                                      												                                      *|
 |*										 The robot is coded to follow a guide of 14, 90 degree, turns 					 	     	*|
 |* 						 					 			by setting the encoders to the correct value 														*|
-|*										 A button coded for the controler to stop the robot mid program									*|
+|*										 A button coded for the controller to stop the robot mid program								*|
 |*																																																		*|
 \*-----------------------------------------------------------------------------------------------4246-*/
 #include "../../includes/headers/myheader.h"
