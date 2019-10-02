@@ -65,16 +65,15 @@ void turn(int dist, bool l_r)
 
 
 
-task stopMyTasksR(){
-	while(SensorValue[frontTouch]!=1){
+task stopRobot() {
+	while(1==1) {
+		if(vexRT[Btn8L]==1) {
+			StopAllTasks();
+		} 
+		else if(SensorValue[frontTouch]==1) {
+			StopAllTasks();
+		}
 	}
-	StopAllTasks();
-}
-
-task stopMyTasksC() {
-	while(vexRT[Btn8L]!=1) {
-	}
-	StopAllTasks();
 }
 
 task battery()
@@ -102,7 +101,7 @@ task battery()
 	}
 }
 void light() {
-	while(SensorValue(lightSensor) > 200) 
+	while(SensorValue(lightSensor) > 500) 
 	{
 	
 		motor[rightMotor] = 0;			          

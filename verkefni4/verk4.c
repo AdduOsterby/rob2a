@@ -28,17 +28,17 @@
 task main()
 {
 	StartTask(battery);
-	StartTask(stopMyTasksC);
+	StartTask(stopRobot);
 	wait1Msec(2000);
 	while(1 == 1) {
-		while(SensorValue(sonar) > 30  || SensorValue(sonar) == -1)
+		while(SensorValue(sonar) > 80  || SensorValue(sonar) == -1)
 		{
 			motor[rightMotor] = 63;
 			motor[leftMotor]  = 63;
 			light();
 		}
 		stopMotors();
-		turn(BASETURN, 1);
+		turn(BASETURN, random(2)-1);
 		stopMotors();
 		light();
 	}
