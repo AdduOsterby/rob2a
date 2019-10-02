@@ -31,7 +31,7 @@ task main()
 	StartTask(stopRobot);
 	wait1Msec(2000);
 	while(1 == 1) {
-		while(SensorValue(sonar) > 80  || SensorValue(sonar) == -1)
+		while(SensorValue(sonar) > 60  || SensorValue(sonar) == -1)
 		{
 			motor[rightMotor] = 63;
 			motor[leftMotor]  = 63;
