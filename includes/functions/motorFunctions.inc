@@ -108,3 +108,18 @@ void light() {
 		motor[leftMotor]  = 0;
 	}
 }
+
+
+task verk2c()
+{
+	bool turnArray[14]={0,1,1,0,0,1,0,0,1,0,0,1,1,0};
+	wait1Msec(2000);
+	for(int i=0;i<15;i++){
+		stopMotors();
+		resetEncoder();
+		driveEncoder(BASEDIST, true);
+		stopMotors();
+		resetEncoder();
+		turn(BASETURN, turnArray[i]);
+	}
+}

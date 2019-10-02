@@ -25,10 +25,11 @@
 #include "../../includes/functions/motorFunctions.inc"
 
 //+++++++++++++++++++++++++++++++++++++++++++++| MAIN |+++++++++++++++++++++++++++++++++++++++++++++++
-bool turnArray[14]={0,1,1,0,0,1,0,0,1,0,0,1,1,0};
+
 
 task main()
 {
+	bool turnArray[14]={0,1,1,0,0,1,0,0,1,0,0,1,1,0};
 	wait1Msec(2000);
 	for(int i=0;i<15;i++){
 	stopMotors();
