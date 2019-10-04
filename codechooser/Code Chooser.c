@@ -59,6 +59,7 @@ void waitForRelease()
 
 task main()
 {
+	StartTask(stopRobot);
 	//Declare count variable to keep track of our choice
 	int count = 0;
 
@@ -73,7 +74,7 @@ task main()
 		switch(count){
 		case 0:
 			//Display first choice
-			displayLCDCenteredString(0, "Assignment 2c");
+			displayLCDCenteredString(0, "Assignment 2b");
 			displayLCDCenteredString(1, "<		 Enter		>");
 			waitForPress();
 			//Increment or decrement "count" based on button press
@@ -90,7 +91,7 @@ task main()
 			break;
 		case 1:
 			//Display second choice
-			displayLCDCenteredString(0, "Autonomous 2");
+			displayLCDCenteredString(0, "Autonomous 2c");
 			displayLCDCenteredString(1, "<		 Enter		>");
 			waitForPress();
 			//Increment or decrement "count" based on button press
@@ -107,7 +108,7 @@ task main()
 			break;
 		case 2:
 			//Display third choice
-			displayLCDCenteredString(0, "Autonomous 3");
+			displayLCDCenteredString(0, "Autonomous 3a");
 			displayLCDCenteredString(1, "<		 Enter		>");
 			waitForPress();
 			//Increment or decrement "count" based on button press
@@ -154,44 +155,82 @@ task main()
 	switch(count){
 	case 0:
 		//If count = 0, run the code correspoinding with choice 1
-		displayLCDCenteredString(0, "Assignment 2c");
+		displayLCDCenteredString(0, "Assignment 2b");
 		displayLCDCenteredString(1, "is running!");
 		wait1Msec(2000);						// Robot waits for 2000 milliseconds
-		StartTask(verk2c);
+		int counter;
+
+		for(counter = 1; counter <= 5; counter++){
+				resetEncoder();
+				driveEncoder(BASEDIST*counter, true);
+				resetEncoder();
+				driveEncoder(BASEDIST*counter, false);
+				resetEncoder();
+		}
 
 		break;
 	case 1:
 		//If count = 1, run the code correspoinding with choice 2
-		displayLCDCenteredString(0, "Autonomous 2");
+		displayLCDCenteredString(0, "Assignment 2b");
 		displayLCDCenteredString(1, "is running!");
 		wait1Msec(2000);						// Robot waits for 2000 milliseconds
-
-		// Move reverse at full power for 3 seconds
-		motor[rightMotor] = -127;			// Motor on port2 is run at full (-127) power reverse
-		motor[leftMotor]	= -127;			// Motor on port3 is run at full (-127) power reverse
-		wait1Msec(3000);							// Robot runs previous code for 3000 milliseconds before moving on
+		bool turnArray[14]={0,1,1,0,0,1,0,0,1,0,0,1,1,0};
+		for(int i=0;i<15;i++){
+			stopMotors();
+			resetEncoder();
+			driveEncoder(BASEDIST, true);
+			stopMotors();
+			resetEncoder();
+			turn(BASETURN, turnArray[i]);
+		}
 		break;
 	case 2:
 		//If count = 2, run the code correspoinding with choice 3
-		displayLCDCenteredString(0, "Autonomous 3");
+		displayLCDCenteredString(0, "Autonomous 3a");
 		displayLCDCenteredString(1, "is running!");
 		wait1Msec(2000);						// Robot waits for 2000 milliseconds
+		while(1 == 1) {
+				motor[leftMotor]  = (vexRT[Ch3] + vexRT[Ch4])/2;
+				motor[rightMotor] = (vexRT[Ch3] - vexRT[Ch4])/2;
 
-		//Turn right for 3 seconds
-		motor[rightMotor] = -63;			// Motor on port2 is run at half power reverse
-		motor[leftMotor]	= 63;				// Motor on port3 is run at half power forward
-		wait1Msec(3000);							// Robot runs previous code for 3000 milliseconds before moving on
+				if(vexRT[Btn5U] == 1)	{
+					motor[armMotor] = 127;
+				}
+				else if(vexRT[Btn5D] == 1) {
+					motor[armMotor] = -127;
+				}
+				else {
+					motor[armMotor] = 0;
+				}
+
+				if(vexRT[Btn6U] == 1)	{
+					motor[clawMotor] = 127;
+				}
+				else if(vexRT[Btn6D] == 1) {
+					motor[clawMotor] = -127;
+				}
+				else {
+					motor[clawMotor] = 0;
+				}
+		}
 		break;
 	case 3:
 		//If count = 3, run the code correspoinding with choice 4
 		displayLCDCenteredString(0, "Autonomous 4");
 		displayLCDCenteredString(1, "is running!");
 		wait1Msec(2000);						// Robot waits for 2000 milliseconds
-
-		//Turn left for 3 seconds
-		motor[rightMotor] = 63;				// Motor on port2 is run at half power forward
-		motor[leftMotor]	= -63;			// Motor on port3 is run at half power reverse
-		wait1Msec(3000);							// Robot runs previous code for 3000 milliseconds before moving on
+		while(1 == 1) {
+					while(SensorValue(sonar) > 60  || SensorValue(sonar) == -1)
+					{
+						motor[rightMotor] = 63;
+						motor[leftMotor]  = 63;
+						light();
+					}
+					stopMotors();
+					turn(BASETURN, random(2)-1);
+					stopMotors();
+					light();
+				}
 		break;
 	default:
 		displayLCDCenteredString(0, "No valid choice");
