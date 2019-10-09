@@ -171,7 +171,7 @@ task main()
 		break;
 	case 1:
 		//If count = 1, run the code correspoinding with choice 2
-		displayLCDCenteredString(0, "Assignment 2b");
+		displayLCDCenteredString(0, "Assignment 2c");
 		displayLCDCenteredString(1, "is running!");
 		wait1Msec(2000);						// Robot waits for 2000 milliseconds
 		bool turnArray[14]={0,1,1,0,0,1,0,0,1,0,0,1,1,0};
