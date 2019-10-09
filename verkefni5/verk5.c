@@ -37,13 +37,15 @@
 |*    Analog - Port 3     lineFollowerLEFT    VEX Light Sensor      Front-left, facing down           *|
 \*-----------------------------------------------------------------------------------------------4246-*/
 
-
+#include "../includes/headers/myheader.h"
+#include "../includes/functions/motorFunctions.inc"
 //+++++++++++++++++++++++++++++++++++++++++++++| MAIN |+++++++++++++++++++++++++++++++++++++++++++++++
 task main()
 {
-  wait1Msec(2000);          // The program waits for 2000 milliseconds before continuing.
+  StartTask(stopRobot);
+	wait1Msec(2000);          // The program waits for 2000 milliseconds before continuing.
 
-  int threshold = 2300;      /* found by taking a reading on both DARK and LIGHT    */
+  int threshold = 2200;      /* found by taking a reading on both DARK and LIGHT    */
                             /* surfaces, adding them together, then dividing by 2. */
   while(true)
   {
@@ -62,7 +64,7 @@ task main()
     {
       // counter-steer right:
       motor[leftMotor]  = 63;
-      motor[rightMotor] = 0;
+      motor[rightMotor] = 30;
     }
     // CENTER sensor sees dark:
     if(SensorValue(middleLine) > threshold)
@@ -75,7 +77,7 @@ task main()
     if(SensorValue(leftLine) > threshold)
     {
       // counter-steer left:
-      motor[leftMotor]  = 0;
+      motor[leftMotor]  = 30;
       motor[rightMotor] = 63;
     }
   }

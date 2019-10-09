@@ -63,8 +63,6 @@ void turn(int dist, bool l_r)
   }
 }
 
-
-
 task stopRobot() {
 	while(1==1) {
 		if(vexRT[Btn8L]==1) {
