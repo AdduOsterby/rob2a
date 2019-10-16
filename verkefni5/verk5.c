@@ -39,15 +39,16 @@
 
 #include "../includes/headers/myheader.h"
 #include "../includes/functions/motorFunctions.inc"
-
-
+#define MAXSPEED 60
+#define MINSPEED 0
 //+++++++++++++++++++++++++++++++++++++++++++++| MAIN |+++++++++++++++++++++++++++++++++++++++++++++++
 task main()
 {
+
   StartTask(stopRobot);
 	wait1Msec(2000);          // The program waits for 2000 milliseconds before continuing.
 
-  int threshold = 2300;     /* found by taking a reading on both DARK and LIGHT    */
+  int threshold = 2360;     /* found by taking a reading on both DARK and LIGHT    */
                             /* surfaces, adding them together, then dividing by 2. */
   while(true)
   {
@@ -65,22 +66,22 @@ task main()
     if(SensorValue(rightLine) > threshold)
     {
       // counter-steer right:
-      motor[leftMotor]  = 63;
-      motor[rightMotor] = 15;
+      motor[leftMotor]  = MAXSPEED;
+      motor[rightMotor] = MINSPEED;
     }
     // CENTER sensor sees dark:
     if(SensorValue(middleLine) > threshold)
-    {
+		{
       // go straight
-      motor[leftMotor]  = 63;
-      motor[rightMotor] = 63;
+      motor[leftMotor]  = MAXSPEED;
+      motor[rightMotor] = MAXSPEED;
     }
     // LEFT sensor sees dark:
     if(SensorValue(leftLine) > threshold)
     {
       // counter-steer left:
-      motor[leftMotor]  = 15;
-      motor[rightMotor] = 63;
+      motor[leftMotor]  = MINSPEED;
+      motor[rightMotor] = MAXSPEED;
     }
   }
 }
