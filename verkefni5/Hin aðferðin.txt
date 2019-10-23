@@ -1,0 +1,16 @@
+if(SensorValue(middleLine) < threshold)
+		{
+			if(SensorValue(rightLine) < SensorValue(leftLine)){
+				motor[leftMotor]  = MINSPEED;
+     	  motor[rightMotor] = MAXSPEED;
+			}
+			else{
+	      motor[leftMotor]  = MAXSPEED;
+	      motor[rightMotor] = MINSPEED;
+    	}
+    }
+    // LEFT sensor sees dark:
+    else {
+    	motor[leftMotor]  = MAXSPEED;
+      motor[rightMotor] = MAXSPEED;
+    }

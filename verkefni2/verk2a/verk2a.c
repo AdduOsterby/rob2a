@@ -1,4 +1,6 @@
-#pragma config(Sensor, in4,    middleLine,     sensorLineFollower)
+#pragma config(Sensor, in4
+
+,    middleLine,     sensorLineFollower)
 #pragma config(Sensor, in5,    rightLine,      sensorLineFollower)
 #pragma config(Sensor, in6,    leftLine,       sensorLineFollower)
 #pragma config(Sensor, in7,    lightSensor,    sensorReflection)
