@@ -45,7 +45,7 @@
 #include "../includes/headers/myheader.h"
 #include "../includes/functions/motorFunctions.inc"
 #define MAXSPEED 63
-#define MINSPEED 20
+#define MINSPEED 0
 //+++++++++++++++++++++++++++++++++++++++++++++| MAIN |+++++++++++++++++++++++++++++++++++++++++++++++
 task main()
 {
@@ -67,22 +67,24 @@ task main()
     displayNextLCDNumber(SensorValue(rightLine));   //  x  x  x   |
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -+
 
-    // RIGHT sensor sees dark:
-    if(SensorValue(rightLine) > threshold)
-    {
-      // counter-steer right:
-      motor[leftMotor]  = MAXSPEED;
-      motor[rightMotor] = MINSPEED;
-    }
-    // CENTER sensor sees dark:
     if(SensorValue(middleLine) > threshold)
 		{
       // go straight
       motor[leftMotor]  = MAXSPEED;
       motor[rightMotor] = MAXSPEED;
     }
+    // RIGHT sensor sees dark:
+    else if(SensorValue(rightLine) > threshold)
+    {
+      // counter-steer right:
+      motor[leftMotor]  = MAXSPEED;
+      motor[rightMotor] = MINSPEED;
+
+    }
+    // CENTER sensor sees dark:
+
     // LEFT sensor sees dark:
-    if(SensorValue(leftLine) > threshold)
+    else if(SensorValue(leftLine) > threshold)
     {
       // counter-steer left:
       motor[leftMotor]  = MINSPEED;
