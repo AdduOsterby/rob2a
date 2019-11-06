@@ -3,6 +3,8 @@
 #define BASETIME 1500
 #define BASEDIST 270 //er 540
 #define BASETURN 250
+#define MAXSPEED 60
+#define MINSPEED 7
 
 void driveTime(int counter, bool b_f);
 
