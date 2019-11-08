@@ -6,20 +6,20 @@ void driveTime(int counter, bool b_f) {
 }
 
 void resetEncoder() {
-	SensorValue[rightEncoder] = 0;
-	SensorValue[leftEncoder] = 0;
+	nMotorEncoder[rightMotor] = 0;
+	nMotorEncoder[leftMotor] = 0;
 }
 
 void driveEncoder(int dist, bool b_f) {
 	int dir = (b_f)? (1):(-1);
-	while(dist > abs(SensorValue[leftEncoder])) {
-		if(abs(SensorValue[rightEncoder]) == abs(SensorValue[leftEncoder])) 
+	while(dist > abs(nMotorEncoder[leftMotor])) {
+		if(abs(nMotorEncoder[rightMotor]) == abs(nMotorEncoder[leftMotor])) 
 			{
 				// Move Forward
 				motor[rightMotor] = 80 * dir;		   
 				motor[leftMotor]  = 80 * dir;		    
 			}
-			else if(abs(SensorValue[rightEncoder]) > abs(SensorValue[leftEncoder]))	
+			else if(abs(nMotorEncoder[rightMotor]) > abs(nMotorEncoder[leftMotor]))	
 			{
 				if(dir == -1) {
 					// Turn slightly right
@@ -34,15 +34,15 @@ void driveEncoder(int dist, bool b_f) {
 			else	
 			{
 				// Turn slightly left
-				motor[rightMotor] = 60 * dir;		    
+				motor[rightMotor] = 75 * dir;		    
 				motor[leftMotor]  = 80 * dir;		    
 			}
 		}
 	}
 	
 void stopMotors(){
-  motor(rightMotor) = 0;
-  motor(leftMotor) = 0;
+  motor[rightMotor] = 0;
+  motor[leftMotor] = 0;
   wait1Msec(1000);
 }
 	
@@ -50,7 +50,7 @@ void turn(int dist, bool l_r)
 { 
   resetEncoder();
   
-  while(abs(SensorValue[rightEncoder]) < dist)
+  while(abs(nMotorEncoder[rightMotor]) < dist)
   {
 	if(l_r == false){
       motor[rightMotor] = -63;
