@@ -18,5 +18,6 @@ void turn(int dist, bool l_r);
 
 void light();
 
+void find(bool right, bool left, bool middle);
 
-
+void turnGiro(int degrees10,bool counterclock);

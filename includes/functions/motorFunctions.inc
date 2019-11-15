@@ -121,3 +121,68 @@ task verk2c()
 		turn(BASETURN, turnArray[i]);
 	}
 }
+
+void find(bool right, bool left, bool middle)
+{
+		while(SensorValue(middleLine) < 1530){
+			if(right){
+				motor[leftMotor]  = 10;
+		    motor[rightMotor] = 60;
+			}
+			else if(left){
+				motor[leftMotor]  = 60;
+	      motor[rightMotor] = 10;
+			}	
+		}
+	}
+task followLine()
+{
+	bool right = false;
+	bool left = false;
+	bool middle = false;
+	while(true){
+		find(right, left, middle);
+		if(SensorValue(middleLine) > 2000){
+			middle = true;
+			right = false;
+			left = false;
+			
+		}
+		else if(SensorValue(leftLine) > 2000){
+			right = true;
+			left = false;
+			middle = false;
+		}
+		else if(SensorValue(rightLine) > 2000){
+			left = true;
+			right = false;
+			middle = false;
+		}
+	}
+}
+
+void turnGiro(int degrees10,bool counterclock){
+	//Completely clear out any previous sensor readings by setting the port to "sensorNone"
+	SensorType[in3] = sensorNone;
+  wait1Msec(1000);
+  //Reconfigure Analog Port 7 as a Gyro sensor and allow time for ROBOTC to calibrate it
+  SensorType[in3] = sensorGyro;
+  wait1Msec(2000);
+
+  while(abs(SensorValue[in3]) < degrees10)
+  {
+		if (counterclock){
+		motor[rightMotor] = 70;
+		motor[leftMotor] = -70;
+		}
+		else{
+		motor[rightMotor] = -70;
+		motor[leftMotor] = 70;
+		}
+  }
+
+  //Brief brake to stop some drift
+  motor[rightMotor] = -5;
+  motor[leftMotor] = 5;
+  wait1Msec(250);
+}

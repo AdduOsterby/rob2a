@@ -29,18 +29,26 @@
 #include "../includes/headers/myheader.h"
 #include "../includes/functions/motorFunctions.inc"
 
+
+
+
 //+++++++++++++++++++++++++++++++++++++++++++++| MAIN |+++++++++++++++++++++++++++++++++++++++++++++++
 task main()
 {
+	//StartTask(followLine);
 	StartTask(stopRobot);
 	int bottleCount = 0;
 	int counter = 3;
 	while(bottleCount != 3){
-		turn(BASETURN*2, true);
+		//turn(BASETURN*2, true);
+		turnGiro(900*2,true);
 		resetEncoder();
 		driveEncoder(BASEDIST, true);
 		for(int i = 0; i < 2; i++){
-			turn(BASETURN, true);
+			stopMotors();
+			resetEncoder();
+			//turn(BASEDIST, true);
+			turnGiro(900,true);
 			stopMotors();
 			resetEncoder();
 
@@ -61,7 +69,7 @@ task main()
 			driveEncoder(BASEDIST,true);
 			stopMotors();
 		}
-		bottleCount + 1;
+		bottleCount++;
 		counter --;
 	}
 }

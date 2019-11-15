@@ -18,41 +18,10 @@
 #pragma config(Motor,  port7,           armMotor,      tmotorVex269, openLoop)
 #pragma config(Motor,  port10,          leftMotor,     tmotorVex393, openLoop, reversed, encoder, encoderPort, I2C_2, 1000)
 
-bool right = false;
-bool left = false;
-bool middle = false;
-
-void find()
-{
-	while(middle < 1530){
-		if(right){
-			motor[leftMotor]  = 7;
-	    motor[rightMotor] = 60;
-		}
-		else if(left){
-			motor[leftMotor]  = 60;
-      motor[rightMotor] = 7;
-		}
-	}
-}
+#include "../includes/headers/myheader.h"
+#include "../includes/functions/motorFunctions.inc"
 
 task main()
 {
-	while(true){
-		if(SensorValue(middleLine) > 2000){
-			middle = true;
-			right = false;
-			left = false;
-		}
-		else if(SensorValue(leftLine) > 2000){
-			right = true;
-			left = false;
-			middle = false;
-		}
-		else if(SensorValue(rightLine) > 2000){
-			left = true;
-			right = false;
-			middle = false;
-		}
-	}
+	turn(BASETURN, true);
 }
