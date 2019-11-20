@@ -13,43 +13,43 @@ void resetEncoder() {
 void driveEncoder(int dist, bool b_f) {
 	int dir = (b_f)? (1):(-1);
 	while(dist > abs(nMotorEncoder[leftMotor])) {
-		if(abs(nMotorEncoder[rightMotor]) == abs(nMotorEncoder[leftMotor])) 
+		if(abs(nMotorEncoder[rightMotor]) == abs(nMotorEncoder[leftMotor]))
 			{
 				// Move Forward
-				motor[rightMotor] = 80 * dir;		   
-				motor[leftMotor]  = 80 * dir;		    
+				motor[rightMotor] = 80 * dir;
+				motor[leftMotor]  = 80 * dir;
 			}
-			else if(abs(nMotorEncoder[rightMotor]) > abs(nMotorEncoder[leftMotor]))	
+			else if(abs(nMotorEncoder[rightMotor]) > abs(nMotorEncoder[leftMotor]))
 			{
 				if(dir == -1) {
 					// Turn slightly right
-					motor[rightMotor] = 70 * dir;		    
-					motor[leftMotor]  = 80 * dir;		    
+					motor[rightMotor] = 70 * dir;
+					motor[leftMotor]  = 80 * dir;
 				}
 				else {
-					motor[rightMotor] = 90 * dir;		    
+					motor[rightMotor] = 90 * dir;
 					motor[leftMotor]  = 60 * dir;
 				}
 			}
-			else	
+			else
 			{
 				// Turn slightly left
-				motor[rightMotor] = 75 * dir;		    
-				motor[leftMotor]  = 80 * dir;		    
+				motor[rightMotor] = 75 * dir;
+				motor[leftMotor]  = 80 * dir;
 			}
 		}
 	}
-	
+
 void stopMotors(){
   motor[rightMotor] = 0;
   motor[leftMotor] = 0;
   wait1Msec(1000);
 }
-	
+
 void turn(int dist, bool l_r)
-{ 
+{
   resetEncoder();
-  
+
   while(abs(nMotorEncoder[rightMotor]) < dist)
   {
 	if(l_r == false){
@@ -67,7 +67,7 @@ task stopRobot() {
 	while(1==1) {
 		if(vexRT[Btn8L]==1) {
 			StopAllTasks();
-		} 
+		}
 		else if(SensorValue[frontTouch]==1) {
 			StopAllTasks();
 		}
@@ -99,10 +99,10 @@ task battery()
 	}
 }
 void light() {
-	while(SensorValue(lightSensor) > 500) 
+	while(SensorValue(lightSensor) > 500)
 	{
-	
-		motor[rightMotor] = 0;			          
+
+		motor[rightMotor] = 0;
 		motor[leftMotor]  = 0;
 	}
 }
@@ -122,43 +122,57 @@ task verk2c()
 	}
 }
 
-void find(bool right, bool left, bool middle)
+void find(string last)
 {
 		while(SensorValue(middleLine) < 1530){
-			if(right){
-				motor[leftMotor]  = 10;
+			if(last == "right"){
+				motor[leftMotor]  = 0;
 		    motor[rightMotor] = 60;
 			}
-			else if(left){
+			else if(last == "left"){
 				motor[leftMotor]  = 60;
-	      motor[rightMotor] = 10;
-			}	
+	      motor[rightMotor] = 0;
+			}
+			else if(last == "middle") {
+				motor[leftMotor]  = -50;
+	      motor[rightMotor] = -50;
+			}
 		}
+		stopMotors();
 	}
 task followLine()
 {
 	bool right = false;
 	bool left = false;
 	bool middle = false;
+	string last;
 	while(true){
-		find(right, left, middle);
+		if(!middle && !left && !right) {
+			find(last);
+		}
 		if(SensorValue(middleLine) > 2000){
 			middle = true;
 			right = false;
 			left = false;
-			
+			last = "middle";
 		}
 		else if(SensorValue(leftLine) > 2000){
 			right = true;
 			left = false;
 			middle = false;
+			last = "right";
 		}
 		else if(SensorValue(rightLine) > 2000){
 			left = true;
 			right = false;
 			middle = false;
+			last = "left";
 		}
-	}
+		else if(SensorValue(rightLine) > 2000 && SensorValue(leftLine) > 2000 && SensorValue(middleLine) > 2000)
+			left = false;
+			right = false;
+			middle = false;
+		}
 }
 
 void turnGiro(int degrees10,bool counterclock){
