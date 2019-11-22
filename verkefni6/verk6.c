@@ -60,7 +60,7 @@ task main()
 				stopMotors();
 				resetEncoder();
 			}
-			//turnGiro(900, turnArray[bottleCount]);
+			turnGiro(900, turnArray[bottleCount]);
 			stopMotors();
 			resetEncoder();
 

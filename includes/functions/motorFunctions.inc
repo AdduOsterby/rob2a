@@ -34,8 +34,8 @@ void driveEncoder(int dist, bool b_f) {
 			else
 			{
 				// Turn slightly left
-				motor[rightMotor] = 75 * dir;
-				motor[leftMotor]  = 80 * dir;
+				motor[rightMotor] = 80 * dir;
+				motor[leftMotor]  = 60 * dir;
 			}
 		}
 	}
@@ -124,18 +124,18 @@ task verk2c()
 
 void find(string last)
 {
-		while(SensorValue(middleLine) < 1530){
+		while(SensorValue(middleLine) < 2000){
 			if(last == "right"){
-				motor[leftMotor]  = 0;
-		    motor[rightMotor] = 60;
+				motor[leftMotor]  = 10;
+				motor[rightMotor] = 60;
 			}
 			else if(last == "left"){
 				motor[leftMotor]  = 60;
-	      motor[rightMotor] = 0;
+				motor[rightMotor] = 10;
 			}
 			else if(last == "middle") {
-				motor[leftMotor]  = -50;
-	      motor[rightMotor] = -50;
+				motor[leftMotor]  = -60;
+				motor[rightMotor] = -60;
 			}
 		}
 		stopMotors();
@@ -168,6 +168,13 @@ task followLine()
 			middle = false;
 			last = "left";
 		}
+		else if((SensorValue(middleLine) > 2000 && SensorValue(rightLine) > 2000) || (SensorValue(middleLine) > 2000 && SensorValue(leftLine))) {
+			middle = true;
+			right = false;
+			left = false;
+			last = "middle";
+		}
+
 		else if(SensorValue(rightLine) < 2000 && SensorValue(leftLine) < 2000 && SensorValue(middleLine) < 2000)
 			left = false;
 			right = false;
