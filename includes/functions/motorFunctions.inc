@@ -168,7 +168,7 @@ task followLine()
 			middle = false;
 			last = "left";
 		}
-		else if(SensorValue(rightLine) > 2000 && SensorValue(leftLine) > 2000 && SensorValue(middleLine) > 2000)
+		else if(SensorValue(rightLine) < 2000 && SensorValue(leftLine) < 2000 && SensorValue(middleLine) < 2000)
 			left = false;
 			right = false;
 			middle = false;
