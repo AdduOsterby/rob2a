@@ -38,6 +38,9 @@ void driveEncoder(int dist, bool b_f) {
 				motor[leftMotor]  = 60 * dir;
 			}
 		}
+		motor[rightMotor] = -5 * dir;
+		motor[leftMotor] = -5 * dir;
+		wait1Msec(250);
 	}
 
 void stopMotors(){
@@ -124,7 +127,7 @@ task verk2c()
 
 void find(string last)
 {
-		while(SensorValue(middleLine) < 2000){
+		while(SensorValue(middleLine) < 1000){
 			if(last == "right"){
 				motor[leftMotor]  = 10;
 				motor[rightMotor] = 60;
@@ -168,7 +171,7 @@ task followLine()
 			middle = false;
 			last = "left";
 		}
-		else if((SensorValue(middleLine) > 2000 && SensorValue(rightLine) > 2000) || (SensorValue(middleLine) > 2000 && SensorValue(leftLine))) {
+		else if((SensorValue(middleLine) > 2000 && SensorValue(rightLine) > 2000) || (SensorValue(middleLine) > 2000 && SensorValue(leftLine) > 2000)) {
 			middle = true;
 			right = false;
 			left = false;
@@ -207,3 +210,13 @@ void turnGiro(int degrees10,bool counterclock){
   motor[leftMotor] = 5;
   wait1Msec(250);
 }
+task liftArm()
+{
+	while(true) {
+		while(SensorValue[petentiometer] < 1600) {
+			Motor[armMotor] = -60;
+		}
+		Motor[armMotor] = 0;
+	}
+}
+
