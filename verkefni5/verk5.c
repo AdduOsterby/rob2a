@@ -32,7 +32,7 @@
 //+++++++++++++++++++++++++++++++++++++++++++++| MAIN |+++++++++++++++++++++++++++++++++++++++++++++++
 task main()
 {
-
+	StartTask(followLine);
   StartTask(stopRobot);
 	wait1Msec(2000);
   int threshold = 1530;

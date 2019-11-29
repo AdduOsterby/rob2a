@@ -44,6 +44,7 @@ task main()
 		//turn(BASETURN*2, true);
 
 		for(int i = 0; i < 2; i++){
+			openClaw();
 			turnGiro(900*2,true);
 			resetEncoder();
 
@@ -66,6 +67,16 @@ task main()
 
 			driveEncoder(BASEDIST, true);
 			stopMotors();
+			wait1Msec(500);
+			StartTask(closeClaw);
+			wait1Msec(1000);
+			if(i==0){
+				StartTask(liftArm);
+			}
+			else {
+				StopTask(liftArm);
+				releaseArm();
+			}
 
 			/*turnGiro(900*2, );
 			stopMotors();

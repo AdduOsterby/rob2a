@@ -27,8 +27,8 @@ void driveEncoder(int dist, bool b_f) {
 					motor[leftMotor]  = 80 * dir;
 				}
 				else {
-					motor[rightMotor] = 90 * dir;
-					motor[leftMotor]  = 60 * dir;
+					motor[rightMotor] = 50 * dir;
+					motor[leftMotor]  = 90 * dir;
 				}
 			}
 			else
@@ -214,9 +214,30 @@ task liftArm()
 {
 	while(true) {
 		while(SensorValue[petentiometer] < 1600) {
-			Motor[armMotor] = -60;
+			motor[armMotor] = -60;
 		}
-		Motor[armMotor] = 0;
+		motor[armMotor] = 0;
 	}
 }
+void releaseArm()
+{
 
+	while(SensorValue[petentiometer] > 1300) {
+		motor[armMotor] = 60;
+	}
+	motor[armMotor] = 0;
+	
+}
+
+void openClaw() {
+	motor[clawMotor] = -60;
+	wait1Msec(1000);
+	motor[clawMotor] = 0;
+
+}
+
+task closeClaw() {
+	while(true) {
+		motor[clawMotor] = 60;
+	}
+}
