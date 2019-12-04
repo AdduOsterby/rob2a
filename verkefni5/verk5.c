@@ -32,7 +32,7 @@
 //+++++++++++++++++++++++++++++++++++++++++++++| MAIN |+++++++++++++++++++++++++++++++++++++++++++++++
 task main()
 {
-	StartTask(followLine);
+	//StartTask(followLine);
   StartTask(stopRobot);
 	wait1Msec(2000);
   int threshold = 1530;
@@ -40,27 +40,27 @@ task main()
   while(true)
   {
 
-
-    if(SensorValue(middleLine) > threshold)
+		while(SensorValue(sonar) > 13 || SensorValue(sonar) == -1)
 		{
+	    if(SensorValue(middleLine) > threshold)
+			{
+				motor[leftMotor]  = 45;
+	      motor[rightMotor] = 45;
+	    }
+	    if(SensorValue(rightLine) > threshold)
+	    {
+	      motor[leftMotor]  = 97;
+	      motor[rightMotor] = 10;
+	    }
+	    if(SensorValue(leftLine) > threshold)
+	    {
+	      motor[leftMotor]  = 10;
+	      motor[rightMotor] = 97;
+	    }
 
-      motor[leftMotor]  = MAXSPEED;
-      motor[rightMotor] = MAXSPEED;
-    }
-
-    if(SensorValue(rightLine) > threshold)
-    {
-
-      motor[leftMotor]  = MAXSPEED;
-      motor[rightMotor] = MINSPEED;
-
-    }
-    if(SensorValue(leftLine) > threshold)
-    {
-
-      motor[leftMotor]  = MINSPEED;
-      motor[rightMotor] = MAXSPEED;
-    }
+		}
+		motor[leftMotor] = 0;
+	  motor[rightMotor] = 0;
   }
 }
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
