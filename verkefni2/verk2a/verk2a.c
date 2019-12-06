@@ -34,9 +34,5 @@ task main()
 			driveTime(BASETIME*counter, true);
 			driveTime(BASETIME*counter, false);
 	}
-
-
-
-
 }
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++

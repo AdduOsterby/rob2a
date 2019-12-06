@@ -22,7 +22,10 @@
 /*----------------------------------------------------------------------------------------------------*\
 |*                             	             - Verkefni 6 -                                           *|
 |*                                       Linsensor linetracking                                       *|
-|*                              Robot uses 3 line sensors to follow a line                            *|
+|*                              	Robot uses line sensors to travel through a 												*|
+|*														course that has a glass at the end, grabs the class,										*|
+|*														turns around, and goes the course again to drop the											*|
+|*																			glass at the other end																				*|
 |*                                                                                                    *|
 \*-----------------------------------------------------------------------------------------------4246-*/
 
@@ -35,58 +38,60 @@
 //+++++++++++++++++++++++++++++++++++++++++++++| MAIN |+++++++++++++++++++++++++++++++++++++++++++++++
 task main()
 {
-	StartTask(stopRobot);
-	StartTask(followLine);
-	int bottleCount = 0;
-	int counter = 1;
-	bool turnArray[3] = {0,1,0};
-	while(bottleCount != 3){
-		//turn(BASETURN*2, true);
+	//StartTask(followLine);
+  StartTask(stopRobot);
+	wait1Msec(2000);
+  int threshold = 1530;
 
-		for(int i = 0; i < 2; i++){
-			openClaw();
-			turnGiro(900*2,true);
-			resetEncoder();
-
-			driveEncoder(BASEDIST, true);
-
-			stopMotors();
-			resetEncoder();
-			//turn(BASEDIST, true);
-			turnGiro(900,true);
-			stopMotors();
-			resetEncoder();
-			for(int x = 0; x < counter; x++) {
-				driveEncoder(BASEDIST, true);
-				stopMotors();
-				resetEncoder();
-			}
-			turnGiro(900, turnArray[bottleCount]);
-			stopMotors();
-			resetEncoder();
-
-			driveEncoder(BASEDIST, true);
-			stopMotors();
-			wait1Msec(500);
-			StartTask(closeClaw);
-			wait1Msec(1000);
-			if(i==0){
-				StartTask(liftArm);
-			}
-			else {
-				StopTask(liftArm);
-				releaseArm();
-			}
-
-			/*turnGiro(900*2, );
-			stopMotors();
-			resetEncoder();
-
-			driveEncoder(BASEDIST,true);
-			stopMotors();*/
+  while(true)
+  {
+  	int counter = 1;
+  	while(counter == 1)
+  	{
+  		openClaw();
+  		counter++;
+  	}
+		while(SensorValue(sonar) > 20 || SensorValue(sonar) == -1)
+		{
+	    if(SensorValue(middleLine) > threshold)
+			{
+				motor[leftMotor]  = 60;
+	      motor[rightMotor] = 60;
+	    }
+	    /*if(SensorValue(rightLine)&&SensorValue(middleLine) > threshold)
+	    {
+	    	motor[leftMotor]  = 45;
+	      motor[rightMotor] = 0;
+	    };
+	    if(SensorValue(leftLine)&&SensorValue(middleLine) > threshold)
+	    {
+	    	motor[leftMotor]  = 0;
+	      motor[rightMotor] = 45;
+	    };*/
+	    if(SensorValue(rightLine) > threshold)
+	    {
+	      motor[leftMotor]  = 60;
+	      motor[rightMotor] = -45;
+	    }
+	    if(SensorValue(leftLine) > threshold)
+	    {
+	      motor[leftMotor]  = -45;
+	      motor[rightMotor] = 60;
+	    }
+	    if(SensorValue(leftLine) > 2000 && SensorValue(rightLine) > 2000 && SensorValue(middleLine) > 2000)
+	    {
+	    	StopTask(closeClaw);
+	    	StartTask(stopMotors);
+	    }
 		}
-		bottleCount++;
-		counter--;
-	}
+		motor[leftMotor] = 0;
+	  motor[rightMotor] = 0;
+
+	  StartTask(closeClaw);
+  	wait1Msec(1000);
+		StartTask(liftArm);
+		turnGiro(900*2,true);
+  }
+
 }
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++

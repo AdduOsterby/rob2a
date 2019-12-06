@@ -44,18 +44,28 @@ task main()
 		{
 	    if(SensorValue(middleLine) > threshold)
 			{
-				motor[leftMotor]  = 45;
-	      motor[rightMotor] = 45;
+				motor[leftMotor]  = 60;
+	      motor[rightMotor] = 60;
 	    }
+	    /*if(SensorValue(rightLine)&&SensorValue(middleLine) > threshold)
+	    {
+	    	motor[leftMotor]  = 45;
+	      motor[rightMotor] = 0;
+	    };
+	    if(SensorValue(leftLine)&&SensorValue(middleLine) > threshold)
+	    {
+	    	motor[leftMotor]  = 0;
+	      motor[rightMotor] = 45;
+	    };*/
 	    if(SensorValue(rightLine) > threshold)
 	    {
-	      motor[leftMotor]  = 97;
-	      motor[rightMotor] = 10;
+	      motor[leftMotor]  = 60;
+	      motor[rightMotor] = -45;
 	    }
 	    if(SensorValue(leftLine) > threshold)
 	    {
-	      motor[leftMotor]  = 10;
-	      motor[rightMotor] = 97;
+	      motor[leftMotor]  = -45;
+	      motor[rightMotor] = 60;
 	    }
 
 		}

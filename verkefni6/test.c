@@ -23,5 +23,57 @@
 
 task main()
 {
-	turn(BASETURN, true);
+	StartTask(stopRobot);
+	StartTask(followLine);
+	int bottleCount = 0;
+	int counter = 1;
+	bool turnArray[3] = {0,1,0};
+	while(bottleCount != 3){
+		//turn(BASETURN*2, true);
+
+		for(int i = 0; i < 2; i++){
+			openClaw();
+			turnGiro(900*2,true);
+			resetEncoder();
+
+			driveEncoder(BASEDIST, true);
+
+			stopMotors();
+			resetEncoder();
+			//turn(BASEDIST, true);
+			turnGiro(900,true);
+			stopMotors();
+			resetEncoder();
+			for(int x = 0; x < counter; x++) {
+				driveEncoder(BASEDIST, true);
+				stopMotors();
+				resetEncoder();
+			}
+			turnGiro(900, turnArray[bottleCount]);
+			stopMotors();
+			resetEncoder();
+
+			driveEncoder(BASEDIST, true);
+			stopMotors();
+			wait1Msec(500);
+			StartTask(closeClaw);
+			wait1Msec(1000);
+			if(i==0){
+				StartTask(liftArm);
+			}
+			else {
+				StopTask(liftArm);
+				releaseArm();
+			}
+
+			/*turnGiro(900*2, );
+			stopMotors();
+			resetEncoder();
+
+			driveEncoder(BASEDIST,true);
+			stopMotors();*/
+		}
+		bottleCount++;
+		counter--;
+	}
 }
